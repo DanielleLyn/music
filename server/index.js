@@ -14,15 +14,15 @@ app.delete( '/api/music/:id', controller.delete );
 app.get( '/api/music', controller.read );
 
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
-    console.log('conected')
+    console.log('connected')
     app.set('db', dbInstance);
 }).catch(error=>{
     console.log('----error', error);
 });
 
 
-app.listen(3000, ()=>{
-    console.log('server is listening on port 3000'  );
+app.listen(4000, ()=>{
+    console.log('server is listening on port 4000'  );
     
 });
 
