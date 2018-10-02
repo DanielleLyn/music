@@ -15,12 +15,22 @@ class AllMusic extends Component {
         axios.get('/api/music')
         .then(res => {
             console.log('response', res.data)
-            this.props.setAllMusic(res.data)
+            this.setState({
+                AllMusic: res.data
+            })
         })
         .catch(error => {
             console.log('Axios error GET componentDidMount', error)
           })
         }
+
+    deleteSong(id){
+        return axios.delete(`/api/music/${id}`)
+        .then(res => {
+            console.log('res', res.data);
+            window.location.reload();
+        }).catch(err => console.log('error deleting song', err));
+    }
         render() {
             console.log('new state', this.state);
       const albums = this.state.AllMusic.map((song,index) =>{
@@ -28,6 +38,7 @@ class AllMusic extends Component {
           <div>title: {song.title}</div>
           <div>artist: {song.artist}</div>
           <div>album:{song.album} </div>
+          <div><button onClick = {() => this.deleteSong(song.id)}>Delete</button> </div>
           </div>
       })
       console.log('---', albums)
@@ -44,10 +55,10 @@ class AllMusic extends Component {
 //     return state;
 // }
 
-const mapDispatchToProps = {
+// const mapDispatchToProps = {
 
-    setAllMusic
+//     setAllMusic
 
-}
+// }
 
-export default connect( mapDispatchToProps)(AllMusic)
+export default AllMusic

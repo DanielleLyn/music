@@ -7,13 +7,9 @@ module.exports = {
     },
     delete: ( req, res, next ) => {
         const dbInstance = req.app.get('db');
-        const { params } = req; 
-    
-        dbInstance.delete([ params.id ])
-        .then( () => res.sendStatus(200) )
-        .catch( err => {
-            res.status(500).send({errorMessage: "Oops! Something went wrong!"});
-            console.log(err)
-        } );
+        const { id } = req.params; 
+        dbInstance.delete_song(id).then(() => {
+            res.status(200).json({message: 'Listing Deleted!'});
+        }).catch(err => console.log('error deleting listing', err));
 }
 }
